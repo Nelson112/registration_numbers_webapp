@@ -1,5 +1,11 @@
 <h1>Registration Number</h1>
-<form class="" action="index.html" method="post">
+<form class="entry" action="/registrations" method="post">
+  <input type="text" name="registration" placeholder="enter registration number" required>
+  <br><br>
+  <button type="submit" name="button">ADD</button>
+  <br><br>
 </form>
-
-<li>{{plate}}</li>
+<br>
+{{#each newPlate}}
+<li>{{this}}</li>
+{{/each}}

@@ -2,7 +2,8 @@ var express = require('express');
 var exphbs = require('express-handlebars');
 var bodyParser = require('body-parser');
 var app = express();
-// var newPlate = [];
+var newPlate = [];
+var models = require('./models')
 
 app.use(bodyParser.urlencoded({
   extended: false
@@ -17,18 +18,22 @@ app.engine('handlebars', exphbs({
 }));
 app.set('view engine', 'handlebars');
 
-app.get('/reg_number/:number', function(req, res) {
+app.get("/", function(req, res) {
+  res.render('index', {})
+})
 
-  var numberPlate = req.params.number;
+app.post("/registrations", function(req, res) {
+  var registration = req.body.registration;
 
-  // res.send(numberPlate);
-  // newPlate.push(numberPlate);
-  console.log(numberPlate);
+  newPlate.push(registration);
+  console.log(newPlate);
 
-  res.render("index", {
-    plate: numberPlate
-  });
-});
-var port = process.env.PORT || 3001
+  res.render('index', {
+    newPlate: newPlate
+  })
+
+})
+
+var port = process.env.PORT || 3002
 
 app.listen(port);
