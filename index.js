@@ -23,7 +23,8 @@ app.get("/", function(req, res) {
 })
 
 app.post("/registrations", function(req, res) {
-  var registration = req.body.registration;
+  var registration = req.body.registration
+  var options = req.body.town
 
 
     models.numberPlates.findOne({
@@ -45,7 +46,33 @@ app.post("/registrations", function(req, res) {
     newPlate: newPlate
   })
 
+  models.numberPlates.find({"plate": {$regex: /.*/, $options:"i"}}, function (err, result) {
+    if (err) {
+      return err;
+    }
+    else {
+      return result;
+    }
+  })
+
 })
+app.post("/registrations/filter", function(req, res, next) {
+  var town = req.body.town;
+var query = {"plate": {$regex: town, $options:"i"}};
+  models.numberPlates.find(query, function (err, result) {
+    if (town === null) {
+      query = { };
+    }
+    else {
+      res.render('index', {
+        newPlate: result
+      })
+
+    }
+  })
+})
+
+
 
 var port = process.env.PORT || 3002
 

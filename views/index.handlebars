@@ -1,11 +1,22 @@
 <h1>Registration Number</h1>
 <form class="entry" action="/registrations" method="post">
   <input type="text" name="registration" placeholder="enter registration number" required>
-  <br><br>
+  <br>
+  <br>
   <button type="submit" name="button">ADD</button>
-  <br><br>
+  <br>
+  <br>
+  </form>
+  <form class="entry" action="/registrations/filter" method="post">
+  <label>
+    <input type="radio" name="town" value="CFM"> Somerset West</label>
+  <label>
+    <input type="radio" name="town" value="CEY"> Strand</label>
+  <label>
+    <input type="radio" name="town" value="CA"> Cape Town</label><br><br>
+    <button type="submit" name="show" required = "">Show</button>
 </form>
 <br>
 {{#each newPlate}}
-<li>{{this}}</li>
+  <li>{{this.plate}}</li>
 {{/each}}
