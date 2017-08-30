@@ -25,6 +25,19 @@ app.get("/", function(req, res) {
 app.post("/registrations", function(req, res) {
   var registration = req.body.registration;
 
+
+    models.numberPlates.findOne({
+      plate: registration
+    }, function(err, numberPlate) {
+      if (err) {
+        return cb(err);
+      } else if (numberPlate === null) {
+        var plates = new models.numberPlates({
+          plate: registration
+        });
+        plates.save()
+      }
+    })
   newPlate.push(registration);
   console.log(newPlate);
 
