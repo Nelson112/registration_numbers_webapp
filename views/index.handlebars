@@ -1,22 +1,39 @@
 <h1>Registration Number</h1>
-<form class="entry" action="/registrations" method="post">
-  <input type="text" name="registration" placeholder="enter registration number" required>
-  <br>
-  <br>
-  <button type="submit" name="button">ADD</button>
-  <br>
-  <br>
+
+<body>
+  <form class="entry" action="/registrations/reset" method="post">
+    <button class="reset" type="submit" name="button">reset</button>
   </form>
-  <form class="entry" action="/registrations/filter" method="post">
-  <label>
-    <input type="radio" name="town" value="CFM"> Somerset West</label>
-  <label>
-    <input type="radio" name="town" value="CEY"> Strand</label>
-  <label>
-    <input type="radio" name="town" value="CA"> Cape Town</label><br><br>
-    <button type="submit" name="show" required = "">Show</button>
-</form>
-<br>
-{{#each newPlate}}
-  <li>{{this.plate}}</li>
-{{/each}}
+  <form class="add" action="/registrations" method="post">
+    <input type="text" name="registration" placeholder="enter registration number" required>
+    <br>
+    <br>
+    <button type="submit" name="button">ADD</button>
+    <br>
+    <br>
+  </form>
+  <form class="filter" action="/registrations/filter" method="post">
+    <fieldset>
+      <label>
+        <input type="radio" name="town" value="CFM"> Somerset West</label>
+      <label>
+        <input type="radio" name="town" value="CEY"> Strand</label>
+      <label>
+        <input type="radio" name="town" value="CA"> Cape Town</label>
+      <br>
+      <br>
+      <legend>
+        <button type="submit" name="show" required="">Show</button>
+      </legend>
+    </fieldset>
+  </form>
+  <br><br>
+  {{#each newPlate}}
+    <li>{{this}}</li>
+  {{/each}}
+  {{#each addPlate}}
+    <br>
+    <br>
+    <li>{{this.plate}}</li>
+  {{/each}}
+</body>

@@ -27,53 +27,62 @@ app.post("/registrations", function(req, res) {
   var options = req.body.town
 
 
-    models.numberPlates.findOne({
-      plate: registration
-    }, function(err, numberPlate) {
-      if (err) {
-        return cb(err);
-      } else if (numberPlate === null) {
-        var plates = new models.numberPlates({
-          plate: registration
-        });
-        plates.save()
-      }
-    })
+  models.numberPlates.findOne({
+    plate: registration
+  }, function(err, numberPlate) {
+    if (err) {
+      return cb(err);
+    } else if (numberPlate === null) {
+      var plates = new models.numberPlates({
+        plate: registration
+      });
+      plates.save()
+    }
+  })
   newPlate.push(registration);
   console.log(newPlate);
 
   res.render('index', {
     newPlate: newPlate
   })
-
-  models.numberPlates.find({"plate": {$regex: /.*/, $options:"i"}}, function (err, result) {
-    if (err) {
-      return err;
-    }
-    else {
-      return result;
-    }
-  })
-
 })
+
 app.post("/registrations/filter", function(req, res, next) {
-  var town = req.body.town;
-var query = {"plate": {$regex: town, $options:"i"}};
-  models.numberPlates.find(query, function (err, result) {
-    if (town === null) {
-      query = { };
+  var town = req.body.town
+  var query = {
+    "plate": {
+      $regex: town,
+      $options: "i"
     }
-    else {
-      res.render('index', {
-        newPlate: result
-      })
+  };
 
+
+
+
+  models.numberPlates.find(query, function(err, result) {
+    if (err) {
+      // console.log(err);
+      return next(err);
+    } else if (town === undefined) {
+      query = {};
+    } else {
+      res.render('index', {
+        addPlate: result
+      })
     }
   })
 })
+app.post("/registrations/reset", function(req, res, next) {
 
-
-
+models.numberPlates.remove({}, function(err, result) {
+  if (err) {
+    return next(err)
+  } else {
+    addPlate: result
+    res.render('index', {});
+  }
+});
+});
 var port = process.env.PORT || 3002
 
 app.listen(port);
