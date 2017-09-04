@@ -15,19 +15,20 @@
   <form class="filter" action="/registrations/filter" method="post">
     <fieldset>
       <label>
-        <input type="radio" name="town" value="CFM"> Somerset West</label>
+        <input type="radio" name="town" value="CA"> Cape Town</label>
       <label>
         <input type="radio" name="town" value="CEY"> Strand</label>
       <label>
-        <input type="radio" name="town" value="CA"> Cape Town</label>
+        <input type="radio" name="town" value="CFM"> Somerset West</label>
       <br>
       <br>
       <legend>
-        <button type="submit" name="show" required="">Show</button>
+        <button type="submit" name="show" required="">Show All</button>
       </legend>
     </fieldset>
   </form>
-  <br><br>
+  <br>
+  <br>
   {{#each newPlate}}
     <li>{{this}}</li>
   {{/each}}

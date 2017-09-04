@@ -47,25 +47,27 @@ app.post("/registrations", function(req, res) {
   })
 })
 
-app.post("/registrations/filter", function(req, res, next) {
-  var town = req.body.town
+function createQuery(town) {
+  if(!town){
+    town = "."
+  }
   var query = {
     "plate": {
       $regex: town,
       $options: "i"
     }
   };
+  return query;
+}
 
-
-
-
-  models.numberPlates.find(query, function(err, result) {
+app.post("/registrations/filter", function(req, res, next) {
+  var town = req.body.town
+  models.numberPlates.find(createQuery(town), function(err, result) {
     if (err) {
       // console.log(err);
       return next(err);
-    } else if (town === undefined) {
-      query = {};
-    } else {
+    }
+    else {
       res.render('index', {
         addPlate: result
       })
@@ -74,15 +76,20 @@ app.post("/registrations/filter", function(req, res, next) {
 })
 app.post("/registrations/reset", function(req, res, next) {
 
-models.numberPlates.remove({}, function(err, result) {
-  if (err) {
-    return next(err)
-  } else {
-    addPlate: result
-    res.render('index', {});
-  }
-});
+  models.numberPlates.remove({}, function(err, result) {
+    if (err) {
+      return next(err)
+    } else {
+      addPlate: result
+      res.render('index', {});
+    }
+  });
 });
 var port = process.env.PORT || 3002
+
+app.use(function (err, req, res, next) {
+  console.error(err.stack)
+  res.status(500).send(err)
+})
 
 app.listen(port);
