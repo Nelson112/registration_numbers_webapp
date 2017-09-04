@@ -48,7 +48,7 @@ app.post("/registrations", function(req, res) {
 })
 
 function createQuery(town) {
-  if(!town){
+  if (!town) {
     town = "."
   }
   var query = {
@@ -66,8 +66,7 @@ app.post("/registrations/filter", function(req, res, next) {
     if (err) {
       // console.log(err);
       return next(err);
-    }
-    else {
+    } else {
       res.render('index', {
         addPlate: result
       })
@@ -87,7 +86,7 @@ app.post("/registrations/reset", function(req, res, next) {
 });
 var port = process.env.PORT || 3002
 
-app.use(function (err, req, res, next) {
+app.use(function(err, req, res, next) {
   console.error(err.stack)
   res.status(500).send(err)
 })

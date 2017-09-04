@@ -1,4 +1,4 @@
-li {
+  li {
   border: solid;
   color: #b5b500;
   font-size: 2em;
@@ -12,7 +12,6 @@ li {
   display: inline-block;
   margin-left: 3px;
   margin-bottom: 5px;
-
 }
 h1 {
   text-align: center;
@@ -50,4 +49,4 @@ button {
 }
 .filter {
   display: run-in;
-align-self: center;
+  align-self: center;
