@@ -25,8 +25,7 @@ app.get("/", function(req, res) {
 app.post("/registrations", function(req, res) {
   var registration = req.body.registration
   var options = req.body.town
-
-
+  
   models.numberPlates.findOne({
     plate: registration
   }, function(err, numberPlate) {
